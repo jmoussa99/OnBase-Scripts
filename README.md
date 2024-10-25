@@ -5,5 +5,6 @@ PostPOInvoice.cs
  - sends a POST call of an XML to another application
  - using Hyland Libraries
 
-
- - 
+valueParser.ps1
+ - takes an input file of values and parses through multiple files to find matches
+ - writes the found lines to an output file 
