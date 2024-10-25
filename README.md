@@ -12,3 +12,6 @@ valueParser.ps1
 MergeTIFFs
  - application that queries the database to find errorred out documents
  - errorred documents are validated if they are TIFFs or PDFs
+
+BusinessDayCalculator.cs
+ - Calculates the business days and creates a deliverable if the due date is on a business day
