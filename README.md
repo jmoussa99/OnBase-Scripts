@@ -8,3 +8,7 @@ PostPOInvoice.cs
 valueParser.ps1
  - takes an input file of values and parses through multiple files to find matches
  - writes the found lines to an output file 
+
+MergeTIFFs
+ - application that queries the database to find errorred out documents
+ - errorred documents are validated if they are TIFFs or PDFs
