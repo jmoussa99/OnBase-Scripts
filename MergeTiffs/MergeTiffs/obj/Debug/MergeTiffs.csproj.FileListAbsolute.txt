@@ -1,0 +1,7 @@
+F:\Code\East Transition\MergeTiffs\MergeTiffs\bin\Debug\MergeTiffs.exe.config
+F:\Code\East Transition\MergeTiffs\MergeTiffs\bin\Debug\MergeTiffs.exe
+F:\Code\East Transition\MergeTiffs\MergeTiffs\bin\Debug\MergeTiffs.pdb
+F:\Code\East Transition\MergeTiffs\MergeTiffs\obj\Debug\MergeTiffs.csproj.AssemblyReference.cache
+F:\Code\East Transition\MergeTiffs\MergeTiffs\obj\Debug\MergeTiffs.csproj.CoreCompileInputs.cache
+F:\Code\East Transition\MergeTiffs\MergeTiffs\obj\Debug\MergeTiffs.exe
+F:\Code\East Transition\MergeTiffs\MergeTiffs\obj\Debug\MergeTiffs.pdb

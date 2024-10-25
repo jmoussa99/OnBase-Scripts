@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MergeTiffs", "MergeTiffs\MergeTiffs.csproj", "{C9C8E89F-5105-4DC6-B7FE-31BDA5F5C06B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C9C8E89F-5105-4DC6-B7FE-31BDA5F5C06B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9C8E89F-5105-4DC6-B7FE-31BDA5F5C06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9C8E89F-5105-4DC6-B7FE-31BDA5F5C06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9C8E89F-5105-4DC6-B7FE-31BDA5F5C06B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6A469224-4BA9-4461-8D32-6B51C121D7C0}
+	EndGlobalSection
+EndGlobal
