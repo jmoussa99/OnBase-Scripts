@@ -1,0 +1,60 @@
+# Define the paths for the input files
+$numberFile = ""  # Path to the list of numbers
+$dataFiles = @("")  # Data files
+
+# Read the list of numbers from the first file
+$numbers = (Get-Content $numberFile) -join ',' -split ',' | ForEach-Object { $_.Trim() } | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
+
+# Iterate over each number and search for it in all data files
+foreach ($number in $numbers) {
+    # Create a flag to track if the number is found in any of the data files
+    $foundData = $null
+
+    # Iterate over each data file
+    foreach ($filePath in $dataFiles) {
+        # Read the content of the current data file as a single string (raw)
+        $fileContent = Get-Content -Path $filePath -Raw
+
+        # Debug: Inspect the first few characters of the raw content
+        Write-Host "Inspecting file: $filePath"
+        Write-Host "First 100 characters of raw content:"
+        Write-Host $fileContent.Substring(0, [Math]::Min(100, $fileContent.Length))
+
+        # Use regex to find blocks between quotes (multiline content between quotes)
+        # This pattern will match everything between two double quotes, including newlines
+        $matches = [regex]::Matches($fileContent, '"(.*?)"', [System.Text.RegularExpressions.RegexOptions]::Singleline)
+
+        # Debug: Print how many matches were found
+        Write-Host "Found blocks in the file."
+
+        # Iterate through all matches (i.e., blocks between quotes)
+        foreach ($match in $matches) {
+            $block = $match.Groups[1].Value
+
+            # Debug: Show the first 100 characters of the block to inspect it
+            Write-Host ($block -split "`r`n" | Where-Object { $_ -match "REF\*ICN\*" })
+            Write-Host $number
+            # Check if the current block contains the REF*ICN* with the current number
+            if (($block -split "`r`n" | Where-Object { $_ -match "REF\*ICN\*" }) -contains "REF*ICN*$number~") {
+                Write-Host "Inspecting block:"
+                Write-Host $block.Substring(0, [Math]::Min(1000, $block.Length))
+                # If found, set the found data to the matching block
+                $foundData = $block
+                break  # Exit the loop after finding the first match
+            }
+        }
+
+        # If a match is found, break out of the outer loop
+        if ($foundData) {
+            break
+        }
+    }
+    # If the number was found, write the matched data (the content between quotes) to a new .good file
+    if ($foundData) {
+        $outputFilePath = ""
+        Set-Content -Path $outputFilePath -Value $foundData
+        Write-Host "Matched data for $number has been written to $outputFilePath"
+    } else {
+        Write-Host "No match found for $number"
+    }
+}
