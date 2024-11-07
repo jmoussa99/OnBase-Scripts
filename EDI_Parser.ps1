@@ -4,11 +4,7 @@ $dataFiles = @("")  # Data files
 
 # Read the list of numbers from the first file
 $numbers = (Get-Content $numberFile) -join ',' -split ',' | ForEach-Object { $_.Trim() } | Where-Object { -not [string]::IsNullOrWhiteSpace($_) }
-
-# Iterate over each number and search for it in all data files
-foreach ($number in $numbers) {
-    # Create a flag to track if the number is found in any of the data files
-    $foundData = $null
+$num = ""
 
     # Iterate over each data file
     foreach ($filePath in $dataFiles) {
@@ -32,29 +28,27 @@ foreach ($number in $numbers) {
             $block = $match.Groups[1].Value
 
             # Debug: Show the first 100 characters of the block to inspect it
-            Write-Host ($block -split "`r`n" | Where-Object { $_ -match "REF\*ICN\*" })
-            Write-Host $number
+            $num = ($block -split "`r`n" | Where-Object { $_ -match "REF\*ICN\*" }) | Select-Object -Unique
+            $nums = $num.Substring(8,14)
+            #Write-Host $nums
+            
             # Check if the current block contains the REF*ICN* with the current number
-            if (($block -split "`r`n" | Where-Object { $_ -match "REF\*ICN\*" }) -contains "REF*ICN*$number~") {
+            if ($numbers -contains $nums) {
                 Write-Host "Inspecting block:"
                 Write-Host $block.Substring(0, [Math]::Min(1000, $block.Length))
+
                 # If found, set the found data to the matching block
-                $foundData = $block
-                break  # Exit the loop after finding the first match
+                $outputFilePath = "<PATH>\$nums.good"
+                Set-Content -Path $outputFilePath -Value $block
+                Write-Host "Matched data for $nums has been written to $outputFilePath"
+
+                # Remove the matched number from the numbers list
+                $numbers = $numbers | Where-Object { $_ -ne $nums }
+
+                # Update the input file by overwriting with remaining numbers
+                Set-Content -Path $numberFile -Value ($numbers -join ',') -Encoding UTF8
+                
             }
         }
+    }
 
-        # If a match is found, break out of the outer loop
-        if ($foundData) {
-            break
-        }
-    }
-    # If the number was found, write the matched data (the content between quotes) to a new .good file
-    if ($foundData) {
-        $outputFilePath = ""
-        Set-Content -Path $outputFilePath -Value $foundData
-        Write-Host "Matched data for $number has been written to $outputFilePath"
-    } else {
-        Write-Host "No match found for $number"
-    }
-}
