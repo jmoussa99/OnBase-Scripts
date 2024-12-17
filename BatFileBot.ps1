@@ -166,9 +166,9 @@ function Click-Number {
     }
 }
 
-# Specify the folder path
-$eastPath = "\\fs-p4\mvh_msar\Programs\XMLTransform_472\Batches\EAST"
-$westPath = "\\fs-p4\mvh_msar\Programs\XMLTransform_472\Batches\WEST"
+# Specify the folder path removed for privacy
+$eastPath = ""
+$westPath = ""
 
 # Create an empty list to store the numbers
 
